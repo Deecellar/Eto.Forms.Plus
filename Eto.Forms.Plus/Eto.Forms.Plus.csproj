@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
+    <RootNamespace>Eto.Forms.Plus</RootNamespace>
+    <PackageVersion>1.0</PackageVersion>
+    <Title>Eto Forms Plus</Title>
+    <Copyright>Copyright © 2019</Copyright>
+    <Description>Eto Forms plus Stylet MVVM and IoC</Description>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Eto.Forms" Version="2.5.0-ci-10129" />
+    <PackageReference Include="Eto.Serialization.Xaml" Version="2.5.0-ci-10129" />
+    <PackageReference Include="System.Reflection.Emit" Version="4.3.0" />
+  </ItemGroup>
+
+</Project>

@@ -103,6 +103,12 @@ namespace Eto.Forms.Plus
 				viewModelBase.View = view;
 				view.Load += (s, e) => viewModelBase.OnViewLoaded();
 				view.Shown += (s, e) => viewModelBase.OnViewShown();
+                view.UnLoad += (s, e) => viewModelBase.OnViewUnloaded();
+
+                if (view is Window window)
+                {
+                    window.Closed += (s, e) => viewModelBase.OnViewClosed();
+                }
 			}
 
 			return view as Window;

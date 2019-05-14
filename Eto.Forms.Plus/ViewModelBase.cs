@@ -23,5 +23,13 @@ namespace Eto.Forms.Plus
 		public virtual void OnViewShown()
 		{
 		}
-	}
+
+        public virtual void OnViewUnloaded()
+        {
+        }
+
+        public virtual void OnViewClosed()
+        {
+        }
+    }
 }

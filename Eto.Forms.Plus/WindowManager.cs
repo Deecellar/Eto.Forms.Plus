@@ -17,6 +17,11 @@ namespace Eto.Forms.Plus
 			_application = application;
 		}
 
+        public void Exit()
+        {
+            _application.Quit();
+        }
+
 		public void RunOnUIThread(Action action)
 		{
 			_application.Invoke(action);

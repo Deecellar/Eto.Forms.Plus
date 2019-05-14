@@ -4,8 +4,15 @@ using System.Collections.Generic;
 
 namespace Eto.Forms.Plus
 {
-	public abstract class BootstrapBase<TRootView>
+    public abstract class BootstrapBase
+    {
+        public abstract void ConfigureServices(Action<IStyletIoCBuilder> configureServices);
+    }
+
+	public abstract class BootstrapBase<TRootView> : BootstrapBase
 	{
+        private readonly List<Action<IStyletIoCBuilder>> _configureServicesCallbacks = new List<Action<IStyletIoCBuilder>>();
+
 		protected IContainer Container;
 
 		private void CreateIoCContainer(Application application)
@@ -26,6 +33,10 @@ namespace Eto.Forms.Plus
 			builder.Bind<Application>().ToInstance(application);
 			builder.Bind<WindowManager>().To<WindowManager>().InSingletonScope();
 
+            foreach (var configureServicesCallback in _configureServicesCallbacks)
+            {
+                configureServicesCallback(builder);
+            }
 			ConfigureIoC(builder);
 
 			builder.Autobind();
@@ -48,5 +59,20 @@ namespace Eto.Forms.Plus
 			var rootView = windowManager.CreateAndBind<TRootView>() as Form;
 			application.Run(rootView);
 		}
+
+        public override void ConfigureServices(Action<IStyletIoCBuilder> configureServices)
+        {
+            _configureServicesCallbacks.Add(configureServices);
+        }
 	}
+
+    public static class BootstrapExtensions
+    {
+        public static T WithServices<T>(this T bootstrapBase, Action<IStyletIoCBuilder> configureServices)
+            where T : BootstrapBase
+        {
+            bootstrapBase.ConfigureServices(configureServices);
+            return bootstrapBase;
+        }
+    }
 }

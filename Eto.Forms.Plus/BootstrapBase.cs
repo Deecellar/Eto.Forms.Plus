@@ -4,18 +4,18 @@ using System.Collections.Generic;
 
 namespace Eto.Forms.Plus
 {
-    public abstract class BootstrapBase
-    {
-        public abstract void ConfigureServices(Action<IStyletIoCBuilder> configureServices);
-    }
+	public abstract class BootstrapBase
+	{
+		public abstract void ConfigureServices(Action<IStyletIoCBuilder> configureServices);
+	}
 
 	public abstract class BootstrapBase<TRootView> : BootstrapBase
 	{
-        private readonly List<Action<IStyletIoCBuilder>> _configureServicesCallbacks = new List<Action<IStyletIoCBuilder>>();
+		private readonly List<Action<IStyletIoCBuilder>> _configureServicesCallbacks = new List<Action<IStyletIoCBuilder>>();
 
-		protected IContainer Container;
+		protected virtual IContainer Container { get; set; }
 
-		private void CreateIoCContainer(Application application)
+		protected virtual void CreateIoCContainer(Application application)
 		{
 			var builder = new StyletIoCBuilder();
 			builder.Assemblies = new List<System.Reflection.Assembly>
@@ -33,10 +33,10 @@ namespace Eto.Forms.Plus
 			builder.Bind<Application>().ToInstance(application);
 			builder.Bind<WindowManager>().To<WindowManager>().InSingletonScope();
 
-            foreach (var configureServicesCallback in _configureServicesCallbacks)
-            {
-                configureServicesCallback(builder);
-            }
+			foreach (var configureServicesCallback in _configureServicesCallbacks)
+			{
+				configureServicesCallback(builder);
+			}
 			ConfigureIoC(builder);
 
 			builder.Autobind();
@@ -60,19 +60,19 @@ namespace Eto.Forms.Plus
 			application.Run(rootView);
 		}
 
-        public override void ConfigureServices(Action<IStyletIoCBuilder> configureServices)
-        {
-            _configureServicesCallbacks.Add(configureServices);
-        }
+		public override void ConfigureServices(Action<IStyletIoCBuilder> configureServices)
+		{
+			_configureServicesCallbacks.Add(configureServices);
+		}
 	}
 
-    public static class BootstrapExtensions
-    {
-        public static T WithServices<T>(this T bootstrapBase, Action<IStyletIoCBuilder> configureServices)
-            where T : BootstrapBase
-        {
-            bootstrapBase.ConfigureServices(configureServices);
-            return bootstrapBase;
-        }
-    }
+	public static class BootstrapExtensions
+	{
+		public static T WithServices<T>(this T bootstrapBase, Action<IStyletIoCBuilder> configureServices)
+			where T : BootstrapBase
+		{
+			bootstrapBase.ConfigureServices(configureServices);
+			return bootstrapBase;
+		}
+	}
 }

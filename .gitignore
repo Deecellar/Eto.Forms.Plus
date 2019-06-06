@@ -1,0 +1,14 @@
+﻿################################################################################
+# Este archivo .gitignore ha sido creado automáticamente por Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/Eto.Forms.Plus/bin/Debug/net472
+/Eto.Forms.Plus/obj
+/EtoStyletDemo/.vs/EtoStyletDemo
+/EtoStyletDemo/Lessplit/bin/Debug/netstandard1.6
+/EtoStyletDemo/Lessplit/obj
+/EtoStyletDemo/Lessplit.Mac/obj
+/EtoStyletDemo/Lessplit.Gtk/obj
+/EtoStyletDemo/Lessplit.Wpf/bin/Debug
+/EtoStyletDemo/Lessplit.Wpf/obj

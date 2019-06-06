@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	
+  <PropertyGroup>
+    <TargetFramework>netstandard1.6</TargetFramework>
+    <RootNamespace>Lessplit</RootNamespace>
+    <PackageVersion>1.0</PackageVersion>
+    <Title>Lessplit</Title>
+    <Copyright>Copyright © 2019</Copyright>
+    <Description>Description of Lessplit</Description>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Eto.Forms" Version="2.4.1" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Reference Include="Eto">
+      <HintPath>..\..\Eto.Forms.Plus\bin\Debug\net472\Eto.dll</HintPath>
+    </Reference>
+    <Reference Include="Eto.Forms.Plus">
+      <HintPath>..\..\Eto.Forms.Plus\bin\Debug\net472\Eto.Forms.Plus.dll</HintPath>
+    </Reference>
+    <Reference Include="Eto.Serialization.Xaml">
+      <HintPath>..\..\Eto.Forms.Plus\bin\Debug\net472\Eto.Serialization.Xaml.dll</HintPath>
+    </Reference>
+    <Reference Include="Portable.Xaml">
+      <HintPath>..\..\Eto.Forms.Plus\bin\Debug\net472\Portable.Xaml.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  
+</Project>

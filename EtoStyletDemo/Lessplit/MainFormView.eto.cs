@@ -1,12 +1,12 @@
 using Eto.Drawing;
 using Eto.Forms;
-
 namespace Demo
 {
-    partial class MainForm : Form
+    partial class MainFormView : Form
     {
         void InitializeComponent()
         {
+            MainFormViewModel m = this.DataContext as MainFormViewModel;
             Title = "My Eto Form";
             ClientSize = new Size(400, 350);
             Padding = 10;
@@ -23,15 +23,15 @@ namespace Demo
             // create a few commands that can be used for the menu and toolbar
 
             var clickMe = new Command { MenuText = "Click Me!", ToolBarText = "Click Me!" };
-            clickMe.Executed += (sender, e) => MessageBox.Show(this, "I was clicked!");
+            clickMe.Executed += (e, s) => m.ChangeButton();
 
             var quitCommand = new Command { MenuText = "Quit", Shortcut = Application.Instance.CommonModifier | Keys.Q };
-            quitCommand.Executed += (sender, e) => Application.Instance.Quit();
+            quitCommand.Executed += (sender, e) => m.RequestClose();
 
             var aboutCommand = new Command { MenuText = "About..." };
             aboutCommand.Executed += (sender, e) => new AboutDialog().ShowDialog(this);
-
             // create menu
+            aboutCommand.Bind<string>("MenuText", m, "Hola");
             Menu = new MenuBar
             {
                 Items =

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	
   <PropertyGroup>
-    <TargetFramework>netstandard1.6</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Lessplit</RootNamespace>
     <PackageVersion>1.0</PackageVersion>
     <Title>Lessplit</Title>
@@ -11,21 +11,19 @@
   
   <ItemGroup>
     <PackageReference Include="Eto.Forms" Version="2.4.1" />
+    <PackageReference Include="PropertyChanged.Fody" Version="3.0.1" />
   </ItemGroup>
   
   <ItemGroup>
-    <Reference Include="Eto">
-      <HintPath>..\..\Eto.Forms.Plus\bin\Debug\net472\Eto.dll</HintPath>
-    </Reference>
     <Reference Include="Eto.Forms.Plus">
-      <HintPath>..\..\Eto.Forms.Plus\bin\Debug\net472\Eto.Forms.Plus.dll</HintPath>
+      <HintPath>..\..\Eto.Forms.Plus\bin\Debug\netstandard2.0\Eto.Forms.Plus.dll</HintPath>
     </Reference>
-    <Reference Include="Eto.Serialization.Xaml">
-      <HintPath>..\..\Eto.Forms.Plus\bin\Debug\net472\Eto.Serialization.Xaml.dll</HintPath>
-    </Reference>
-    <Reference Include="Portable.Xaml">
-      <HintPath>..\..\Eto.Forms.Plus\bin\Debug\net472\Portable.Xaml.dll</HintPath>
-    </Reference>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Update="MainFormView.eto.cs">
+      <DependentUpon>MainFormView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   
 </Project>

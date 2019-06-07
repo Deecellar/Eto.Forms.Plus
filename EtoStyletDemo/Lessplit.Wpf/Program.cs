@@ -8,7 +8,8 @@ namespace Demo.Wpf
         [STAThread]
         public static void Main(string[] args)
         {
-            new Application(Eto.Platforms.Wpf).Run(new MainForm());
+            Bootstrapper bootstrapper = new Bootstrapper();
+            bootstrapper.Run(new Application(Eto.Platforms.Wpf));
         }
     }
 }

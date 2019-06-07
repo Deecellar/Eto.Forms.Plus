@@ -9,7 +9,7 @@ namespace Eto.Forms.Plus
         public abstract void ConfigureServices(Action<IStyletIoCBuilder> configureServices);
     }
 
-    public abstract class BootstrapBase<TRootView> : BootstrapBase
+    public abstract class BootstrapBase<TRootViewModel> : BootstrapBase where TRootViewModel : class
     {
         private readonly List<Action<IStyletIoCBuilder>> _configureServicesCallbacks = new List<Action<IStyletIoCBuilder>>();
 
@@ -38,7 +38,7 @@ namespace Eto.Forms.Plus
                 configureServicesCallback(builder);
             }
             ConfigureIoC(builder);
-
+            Configure();
             builder.Autobind();
 
             Container = builder.BuildContainer();
@@ -48,6 +48,10 @@ namespace Eto.Forms.Plus
         {
         }
 
+        protected virtual void Configure()
+        {
+
+        }
         private object GetInstance(Type type)
             => Container.Get(type);
 
@@ -56,7 +60,7 @@ namespace Eto.Forms.Plus
             CreateIoCContainer(application);
 
             var windowManager = Container.Get<WindowManager>();
-            var rootView = windowManager.CreateAndBind<TRootView>() as Form;
+            var rootView = windowManager.CreateAndBind<TRootViewModel>() as Form;
             application.Run(rootView);
         }
 

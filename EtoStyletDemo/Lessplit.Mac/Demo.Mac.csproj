@@ -2,7 +2,7 @@
 	
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFramework>net462</TargetFramework>
   </PropertyGroup>
 	
   <ItemGroup>
@@ -11,6 +11,12 @@
 	
   <ItemGroup>
     <ProjectReference Include="..\Lessplit\Demo.csproj" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <Reference Include="Eto.Forms.Plus">
+      <HintPath>..\..\Eto.Forms.Plus\bin\Debug\netstandard2.0\Eto.Forms.Plus.dll</HintPath>
+    </Reference>
   </ItemGroup>
 	
 </Project>

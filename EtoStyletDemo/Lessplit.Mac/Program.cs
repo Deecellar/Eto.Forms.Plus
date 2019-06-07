@@ -8,7 +8,8 @@ namespace Demo.Mac
         [STAThread]
         public static void Main(string[] args)
         {
-            new Application(Eto.Platforms.Mac64).Run(new MainForm());
+            Bootstrapper bootstrapper = new Bootstrapper();
+            bootstrapper.Run(new Application(Eto.Platforms.Mac64));
         }
     }
 }

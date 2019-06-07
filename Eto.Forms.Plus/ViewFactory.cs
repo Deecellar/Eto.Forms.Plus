@@ -9,7 +9,7 @@ namespace Eto.Forms.Plus
 {
     public class ViewFactory
     {
-        private static readonly ILogger logger = LogManager.GetLogger(typeof(ViewFactory));
+        private static readonly ILogger logger = LogManager.GetLogger(typeof(TraceLogger));
         private Func<Type, object> _factory; // This is assigned by the ctor
 
         /// <summary>
@@ -98,7 +98,6 @@ namespace Eto.Forms.Plus
         public Window GetAndBind<TViewModel>(TViewModel viewModel)
         {
             var view = CreateViewForModel(viewModel);
-            BindViewToModel(view, viewModel);
 
             if (viewModel is ViewModelBase viewModelBase)
             {
@@ -173,12 +172,12 @@ namespace Eto.Forms.Plus
             if (viewType == null)
             {
                 var e = new Exception(String.Format("Unable to find a View with type {0}", viewName));
-                //logger.Error(e);
+                logger.Error(e);
                 throw e;
             }
             else
             {
-                //logger.Info("Searching for a View with name {0}, and found {1}", viewName, viewType);
+                logger.Info("Searching for a View with name {0}, and found {1}", viewName, viewType);
             }
 
             return viewType;
@@ -196,11 +195,12 @@ namespace Eto.Forms.Plus
             if (viewType.IsAbstract || !typeof(Control).IsAssignableFrom(viewType))
             {
                 var e = new Exception(String.Format("Found type for view: {0}, but it wasn't a class derived from UIElement", viewType.Name));
-                //logger.Error(e);
+                logger.Error(e);
                 throw e;
             }
 
             var view = (Control)Factory(viewType);
+            BindViewToModel(view, model);
 
             InitializeView(view, viewType);
 
@@ -216,9 +216,9 @@ namespace Eto.Forms.Plus
         {
             // If it doesn't have a code-behind, this won't be called
             // We have to use this reflection here, since the InitializeComponent is a method on the View, not on any of its base classes
-            //var initializer = viewType.GetMethod("InitializeComponent", BindingFlags.Public | BindingFlags.Instance);
-            //if (initializer != null)
-            //	initializer.Invoke(view, null);
+            var initializer = viewType.GetMethod("InitializeComponent", BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
+            if (initializer != null)
+                initializer.Invoke(view, null);
 
             //  todo: Consider putting Xaml.Load(this) call here
         }

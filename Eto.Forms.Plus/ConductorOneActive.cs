@@ -193,7 +193,7 @@ namespace Eto.Forms.Plus
                 {
                     // Temporarily, until we remove CanClose
 #pragma warning disable CS0618 // Type or member is obsolete
-                    if (!this.CanClose())
+                    if (!base.CanCloseAsync().Result)
 #pragma warning restore CS0618 // Type or member is obsolete
                         return Task.FromResult(false);
                     return this.CanAllItemsCloseAsync(this.items);

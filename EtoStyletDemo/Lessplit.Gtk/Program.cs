@@ -8,7 +8,8 @@ namespace Demo.Gtk
         [STAThread]
         public static void Main(string[] args)
         {
-            new Application(Eto.Platforms.Gtk).Run(new MainForm());
+            Bootstrapper bootstrapper = new Bootstrapper();
+            bootstrapper.Run(new Application(Eto.Platforms.Gtk));
         }
     }
 }

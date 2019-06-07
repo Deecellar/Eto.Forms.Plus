@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Windows.Input;
 
 namespace Eto.Forms.Plus
 {
-    public class RelayCommand : ICommand
+    public class RelayCommand : Command
     {
         private readonly Action<object> _executeDelegate;
         private readonly Predicate<object> _canExecutePredicate;
@@ -26,7 +25,8 @@ namespace Eto.Forms.Plus
 
         public void Execute(object parameter)
         {
-            _executeDelegate(parameter);
+            if (CanExecute(parameter))
+                _executeDelegate(parameter);
         }
     }
 }

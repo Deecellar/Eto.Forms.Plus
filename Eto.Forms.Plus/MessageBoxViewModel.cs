@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Media;
 
 namespace Eto.Forms.Plus
 {
@@ -62,7 +61,6 @@ namespace Eto.Forms.Plus
         /// <summary>
         /// Gets or sets the mapping of MessageBoxType to the sound to play when the MessageBox is shown. You can customize this if you really want.
         /// </summary>
-        public static IDictionary<MessageBoxType, SystemSound> SoundMapping { get; set; }
 
         /// <summary>
         /// Gets or sets the default <see cref="System.Windows.FlowDirection"/> to use
@@ -91,13 +89,7 @@ namespace Eto.Forms.Plus
                 { MessageBoxButtons.YesNoCancel, new[] { DialogResult.Yes, DialogResult.No, DialogResult.Cancel } },
             };
 
-            SoundMapping = new Dictionary<MessageBoxType, SystemSound>()
-            {
-                { MessageBoxType.Error, SystemSounds.Hand },
-                { MessageBoxType.Question, SystemSounds.Question },
-                { MessageBoxType.Warning, SystemSounds.Exclamation },
-                { MessageBoxType.Information, SystemSounds.Asterisk },
-            };
+
 
             DefaultTextAlignment = TextAlignment.Left;
         }
@@ -217,17 +209,6 @@ namespace Eto.Forms.Plus
         /// </summary>
         public virtual DialogResult ClickedButton { get; protected set; }
 
-        /// <summary>
-        /// When the View loads, play a sound if appropriate
-        /// </summary>
-        protected override void OnViewLoaded()
-        {
-            // There might not be a sound, or it might be null
-            SystemSound sound;
-            SoundMapping.TryGetValue(this.Icon, out sound);
-            if (sound != null)
-                sound.Play();
-        }
 
         /// <summary>
         /// Called when MessageBoxView when the user clicks a button

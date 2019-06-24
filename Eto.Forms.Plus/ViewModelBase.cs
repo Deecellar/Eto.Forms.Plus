@@ -10,9 +10,14 @@ namespace Eto.Forms.Plus
 
 		public Control View { get; set; }
 
-		public void SetAndNotify<T>(ref T field, T value, [CallerMemberName] string memberName = null)
+		protected void SetAndNotify<T>(ref T field, T value, [CallerMemberName] string memberName = null)
 		{
 			field = value;
+			NotifyChanged(memberName);
+		}
+
+		protected void NotifyChanged([CallerMemberName] string memberName = null)
+		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(memberName));
 		}
 

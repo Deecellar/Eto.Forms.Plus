@@ -93,7 +93,7 @@ namespace Eto.Forms.Plus
 			_viewAssemblies = new List<Assembly> { GetType().Assembly };
 		}
 
-		public Window GetAndBind<TViewModel>(TViewModel viewModel)
+		public Control GetAndBind<TViewModel>(TViewModel viewModel)
 		{
 			var view = CreateViewForModel(viewModel);
 			BindViewToModel(view, viewModel);
@@ -103,15 +103,15 @@ namespace Eto.Forms.Plus
 				viewModelBase.View = view;
 				view.Load += (s, e) => viewModelBase.OnViewLoaded();
 				view.Shown += (s, e) => viewModelBase.OnViewShown();
-                view.UnLoad += (s, e) => viewModelBase.OnViewUnloaded();
+				view.UnLoad += (s, e) => viewModelBase.OnViewUnloaded();
 
-                if (view is Window window)
-                {
-                    window.Closed += (s, e) => viewModelBase.OnViewClosed();
-                }
+				if (view is Window window)
+				{
+					window.Closed += (s, e) => viewModelBase.OnViewClosed();
+				}
 			}
 
-			return view as Window;
+			return view;
 		}
 
 		/// <summary>

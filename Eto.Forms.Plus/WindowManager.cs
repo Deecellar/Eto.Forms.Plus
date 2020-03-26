@@ -43,6 +43,39 @@ namespace Eto.Forms.Plus
 				return control.ShowModal();
 		}
 
+		public TResult ShowDialog<TViewModel, TResult>(TViewModel viewModel, Control owner = null)
+		{
+			var control = _viewFactory.GetAndBind(viewModel) as Dialog<TResult>;
+			if (control == null)
+				return default(TResult);
+			if (owner != null)
+				return control.ShowModal(owner);
+			else
+				return control.ShowModal();
+		}
+
+		public void ShowDialog<TViewModel>(Control owner = null)
+		{
+			var control = CreateAndBind<TViewModel>() as Dialog;
+			if (control == null)
+				return;
+			if (owner != null)
+				control.ShowModal(owner);
+			else
+				control.ShowModal();
+		}
+
+		public void ShowDialog<TViewModel>(TViewModel viewModel, Control owner = null)
+		{
+			var control = _viewFactory.GetAndBind(viewModel) as Dialog;
+			if (control == null)
+				return;
+			if (owner != null)
+				control.ShowModal(owner);
+			else
+				control.ShowModal();
+		}
+
 		public void ShowForm<TViewModel>()
 		{
 			var control = CreateAndBind<TViewModel>() as Form;
